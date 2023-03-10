@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RiddleMe.Data;
 using RiddleMe.Models;
 using RiddleMe.Models.Domain;
@@ -14,10 +15,11 @@ namespace RiddleMe.Controllers
             _dbContext = dbContext;
         }
 
-        /*public IActionResult Index()
-{
-   return View();
-}*/
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            var riddles = await _dbContext.Riddles.ToListAsync();
+        }
 
         [HttpGet]
         public IActionResult Add()
