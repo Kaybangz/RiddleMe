@@ -92,5 +92,22 @@ namespace RiddleMe.Controllers
         }
 
 
+        [HttpPost]
+        public async Task<IActionResult> Delete(UpdateRiddleVM updateRiddleVM)
+        {
+            var riddle = await _dbContext.Riddles.FindAsync(updateRiddleVM.Id);
+
+            if (riddle != null)
+            {
+                _dbContext.Riddles.Remove(riddle);
+                await _dbContext.SaveChangesAsync();
+
+                return RedirectToAction("Index");
+            }
+
+            return RedirectToAction("Index");
+        }
+
+
     }
 }
