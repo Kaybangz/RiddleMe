@@ -1,5 +1,33 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model List<RiddleMe.Models.Domain.Riddle>
 @{
 }
+
+<h2 class="mx-2">Riddles</h2>
+
+<div class="container text-center d-flex justify-content-between">
+    <div class="row">
+        @foreach(var riddle in Model)
+        {
+            @*<div class="card mx-2 my-2" style="width: 19rem;">
+                <div class="card-body">
+                    <p class="card-title">@riddle.Question</p>
+                    <h3 class="card-text text-uppercase">@riddle.Answer</h3>
+
+                    <div class="mt-4">
+                        <a href="Riddles/View/@riddle.Id" class="card-link btn btn-outline-info">View</a>
+                    </div>
+                </div>
+            </div>*@
+
+            <div class="card border-dark mb-3" style="max-width: 18rem; max-height: 25rem; margin: 10px 1rem;">
+                <div class="card-header">@riddle.Question</div>
+                <div class="card-body my-3">
+                    <h4 class="card-text">@riddle.Answer</h4>
+                </div>
+                <div class="card-footer">
+                        <a href="Riddles/View/@riddle.Id" class="card-link btn btn-outline-primary">View</a>
+                </div>
+            </div>
+        }
+    </div>
+</div>

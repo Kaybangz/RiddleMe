@@ -19,6 +19,8 @@ namespace RiddleMe.Controllers
         public async Task<IActionResult> Index()
         {
             var riddles = await _dbContext.Riddles.ToListAsync();
+
+            return View(riddles);
         }
 
         [HttpGet]
@@ -42,7 +44,51 @@ namespace RiddleMe.Controllers
             await _dbContext.Riddles.AddAsync(riddle);
             await _dbContext.SaveChangesAsync();
 
-            return RedirectToAction("Add");
+            return RedirectToAction("Index");
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> View(Guid id)
+        {
+            var riddle = await _dbContext.Riddles.FirstOrDefaultAsync(r => r.Id == id);
+
+            if (riddle != null)
+            {
+                var viewModel = new UpdateRiddleVM
+                {
+                    Id = riddle.Id,
+                    Question = riddle.Question,
+                    Answer = riddle.Answer,
+                    CreatedAt = riddle.CreatedAt,
+                };
+
+                return await Task.Run(() => View("View", viewModel));
+            }
+
+
+
+            return RedirectToAction("Index");
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> View(UpdateRiddleVM updateRiddleVM)
+        {
+            var riddle = await _dbContext.Riddles.FindAsync(updateRiddleVM.Id);
+
+            if (riddle != null)
+            {
+                riddle.Question = updateRiddleVM.Question;
+                riddle.Answer = updateRiddleVM.Answer;
+                riddle.CreatedAt = updateRiddleVM.CreatedAt;
+
+                await _dbContext.SaveChangesAsync();
+
+                return RedirectToAction("Index");
+            }
+
+            return RedirectToAction("Index");
         }
 
 

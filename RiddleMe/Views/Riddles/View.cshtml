@@ -1,0 +1,22 @@
+﻿@model RiddleMe.Models.UpdateRiddleVM
+@{
+}
+
+<form class="w-50 mx-auto" method="post" action="View">
+    <h3 class="mb-4">Update riddle</h3>
+    <div class="mb-3">
+        <label for="" class="form-label">Id</label>
+        <input type="text" class="form-control " asp-for="Id" readonly>
+    </div>
+
+    <div class="mb-3">
+        <label for="" class="form-label">Question</label>
+        <input type="text" class="form-control " asp-for="Question">
+    </div>
+
+    <div class="mb-3">
+        <label for="" class="form-label">Answer</label>
+        <textarea type="email" class="form-control" asp-for="Answer"> </textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
